@@ -113,11 +113,15 @@ template < class T >
 T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (use a while loop)
-
-
-
-
-
+   TreeNode <T>* leftMost = new TreeNode<T>
+   leftMost = tNode->getLeft();
+   
+   while(leftMost != NULL)
+   {
+	   leftMost = leftMost->getLeft(); 
+   }
+   
+   return leftMost->getItem();
 }
 
 template < class T >
