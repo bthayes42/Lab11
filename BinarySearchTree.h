@@ -28,7 +28,7 @@ class BinarySearchTree : public Drawable
 
       TreeNode<T>* getRootNode();
       void setRootNode(TreeNode<T>* tNode);
-      int getHeight(TreeNode<T>* tNode);
+      int getHeight(TreeNode<T>* tNode); This is a test to see if you want to work with the 
       bool isBalanced(TreeNode<T>* tNode);
 
       int (*compare_items) (T* item_1, T* item_2);
@@ -64,7 +64,7 @@ void BinarySearchTree<T>::remove(String* sk)
 {
    //DO THIS
    
-      root = removeItem(root, sk);
+      root = removeItem(root, sk); 
 
 
 }
@@ -74,7 +74,32 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
 
+	if (tNode == null)
+	{
+		return tNode;
+	}
 
+	      T* item = tNode->getItem();
+		  int comp = (*compare_keys) (sk, item);
+		  
+		  if (comp == 0)
+		  {
+			  sze--;
+			  removeNode(tNode);
+		  }
+		  else if( comp > 0)
+		  {
+			  TreeNode<T>* stree = removeItem(tNode->getRight, sk);
+			  tNode-> setRight(stree);
+			  return tNode
+		  }
+		  else
+		  {
+			  
+			  TreeNode<T>* stree = removeItem(tNode->getLeft, sk);
+			  tNode-> setLeft(stree);
+			  return tNode
+		  }
 
 }
 
@@ -100,12 +125,12 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
    }
    else 
    {
-      //DO THIS
-
-
-
-
-
+      //Do This
+	  T* hold = findLeftMost(tNode->getRight());
+      tNode->setItem(hold);
+      TreeNode<T>* stree = removeLeftMost(tNode->getRight());
+      tNode->setRight(stree);
+      return tNode;
    }
 }
 
@@ -113,6 +138,14 @@ template < class T >
 T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (use a while loop)
+<<<<<<< HEAD
+
+   
+ while(tNode->)
+
+
+
+=======
    TreeNode <T>* leftMost = new TreeNode<T>
    leftMost = tNode->getLeft();
    
@@ -122,6 +155,7 @@ T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
    }
    
    return leftMost->getItem();
+>>>>>>> 6e716efa8a72c58f67d17bb276057de26e6944c0
 }
 
 template < class T >
@@ -129,28 +163,48 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (recursion)
 
-
-
-
-
+	T* item = findLeftMost(tNode);
+	
+	
 }
 
 template < class T >
 T** BinarySearchTree<T>::toArray()
 {
    //DO THIS
-
-
+	T** arrayTN[sze];
+	int cnt = 0;
+	
+	BinaryTreeIterator<T**> iter = tNode->iterator;
+	
+	iter->inorder();
+	
+	while(iter->hasNext() && cnt < sze)
+	{
+		arrayTN[cnt] = iter->getNext();
+		cnt++;
+	}
+		
+	return(arrayTN);
 
 }
 
 template < class T >
 T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
-   //DO THIS
-
-
-
+  
+    BinarySearchTree<T>* BST = new BinarySearchTree((*comp_items), (*comp_keys));
+	T** hold;
+	int cnt = 0;
+	while(cnt < num_itemss)
+	{
+		BST->insert(items[cnt]);
+		cnt++;
+	}
+	
+	hold = BST->toArray();
+	return hold;
+	
 }
 
 template < class T >
