@@ -7,10 +7,13 @@
 
 #include "Circle.h"
 #include "Line.h"
-#include "AVLTree.h"
+#include "BinarySearchTree.h"
 #include "ListArray.h"
 #include "CD.h"
 using namespace CSC2110;
+#include <iostream>
+
+using namespace std;
 
 class MyApp: public wxApp
 {
@@ -43,7 +46,7 @@ bool MyApp::OnInit()
    //DO THIS
    //test your tree sort method
    CD** unsorted_cds = cds->toArray();
-   CD** sorted_cds = 
+  // CD** sorted_cds = 
 
 
 
@@ -57,14 +60,13 @@ bool MyApp::OnInit()
    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
    frame = new wxFrame((wxFrame *)NULL, -1,  wxT("AVL Tree"), wxPoint(500,500), wxSize(1100,600));
  
-   drawPane = new DrawPanel((wxFrame*) frame, avl);
+   drawPane = new DrawPanel((wxFrame*) frame, bst);
    sizer->Add(drawPane, 1, wxEXPAND);
  
    frame->SetSizer(sizer);
    frame->SetAutoLayout(true);
  
    frame->Show();
-   return true;
-} 
+   //return true;
    return 0;
 }
