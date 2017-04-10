@@ -28,7 +28,7 @@ class BinarySearchTree : public Drawable
 
       TreeNode<T>* getRootNode();
       void setRootNode(TreeNode<T>* tNode);
-      int getHeight(TreeNode<T>* tNode); This is a test to see if you want to work with the 
+      int getHeight(TreeNode<T>* tNode);
       bool isBalanced(TreeNode<T>* tNode);
 
       int (*compare_items) (T* item_1, T* item_2);
@@ -74,7 +74,7 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
 
-	if (tNode == null)
+	if (tNode == NULL)
 	{
 		return tNode;
 	}
@@ -89,16 +89,16 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 		  }
 		  else if( comp > 0)
 		  {
-			  TreeNode<T>* stree = removeItem(tNode->getRight, sk);
+			  TreeNode<T>* stree = removeItem(tNode->getRight(), sk);
 			  tNode-> setRight(stree);
-			  return tNode
+			  return tNode;
 		  }
 		  else
 		  {
 			  
-			  TreeNode<T>* stree = removeItem(tNode->getLeft, sk);
+			  TreeNode<T>* stree = removeItem(tNode->getLeft(), sk);
 			  tNode-> setLeft(stree);
-			  return tNode
+			  return tNode;
 		  }
 
 }
@@ -138,24 +138,15 @@ template < class T >
 T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (use a while loop)
-<<<<<<< HEAD
-
+   //TreeNode <T>* leftMost = new TreeNode<T>;
+   //leftMost = tNode->getLeft();
    
- while(tNode->)
-
-
-
-=======
-   TreeNode <T>* leftMost = new TreeNode<T>
-   leftMost = tNode->getLeft();
-   
-   while(leftMost != NULL)
+   while(tNode->getLeft() != NULL)
    {
-	   leftMost = leftMost->getLeft(); 
+	   tNode = tNode->getLeft(); 
    }
    
-   return leftMost->getItem();
->>>>>>> 6e716efa8a72c58f67d17bb276057de26e6944c0
+   return tNode->getItem();
 }
 
 template < class T >
@@ -163,28 +154,41 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (recursion)
 
-	T* item = findLeftMost(tNode);
-	
-	
+
+   if (tNode->getLeft() == NULL)
+   {
+      TreeNode<T>* Right = tNode->getRight();
+      delete tNode;
+      return Right;
+   }
+
+   else
+   {
+	  TreeNode<T>* holdtree;
+      holdtree = removeLeftMost(tNode->getLeft());
+	  tNode->setLeft(holdtree);
+	  return tNode;
+   }
+
 }
 
 template < class T >
 T** BinarySearchTree<T>::toArray()
 {
    //DO THIS
-	T** arrayTN[sze];
+	T** arrayTN = new T*[sze];
 	int cnt = 0;
 	
-	BinaryTreeIterator<T**> iter = tNode->iterator;
+	BinaryTreeIterator<T>* iter = iterator();
 	
-	iter->inorder();
+	iter->setInorder();
 	
 	while(iter->hasNext() && cnt < sze)
 	{
-		arrayTN[cnt] = iter->getNext();
+		arrayTN[cnt] = iter->next();
 		cnt++;
 	}
-		
+		delete iter;
 	return(arrayTN);
 
 }
@@ -203,6 +207,7 @@ T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (
 	}
 	
 	hold = BST->toArray();
+	delete BST;
 	return hold;
 	
 }

@@ -12,7 +12,6 @@
 #include "CD.h"
 using namespace CSC2110;
 #include <iostream>
-
 using namespace std;
 
 class MyApp: public wxApp
@@ -42,19 +41,14 @@ bool MyApp::OnInit()
    }
    delete iter;
 
-   
-   //DO THIS
-   //test your tree sort method
    CD** unsorted_cds = cds->toArray();
-  // CD** sorted_cds = 
+   int size = cds->size();
+   CD** sorted_cds = BinarySearchTree<CD>::treeSort(unsorted_cds, size, &CD::compare_items, &CD::compare_keys);
 
-
-
-
-
-
-
-
+	cout << endl << "Running Remove";
+	for ( int x = 50; x <= 300; x++)
+	   bst->remove(sorted_cds[x]->getKey()); 
+   
 
    delete cds;
    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
@@ -67,6 +61,6 @@ bool MyApp::OnInit()
    frame->SetAutoLayout(true);
  
    frame->Show();
-   //return true;
-   return 0;
-}
+   return true;
+} 
+
